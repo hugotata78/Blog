@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+{% block 'title' %} Inicio {%endblock%}
+{% block 'content' %}
+<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+
+    <main class="container">
+
+        <div class="row g-5">
+
+            <div class="col-md-12">
+                {% include "blog/featured.html" %}
+            </div>
+
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-8">
+                <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                    Más Artículos
+                </h3>
+                {% for post in post_list %}
+                <article class="blog-post">
+                    <h2 class="blog-post-title mb-1">
+                        {% comment %} <a href="{% url 'blog:post' post.slug %}" style="text-decoration: none"
+                            class="text-black">
+                            {{ post.title }}
+                        </a> {% endcomment %}
+                        <a href="{{ post.get_absolute_url }}" style="text-decoration: none" class="text-black">
+                            {{ post.title }}
+                        </a>
+                    </h2>
+                    <p class="blog-post-meta">{{ post.date_created.date }}. {{post.author}}</p>
+
+                    <hr>
+                    <p>{{ post.overview }}</p>
+                </article>
+                {% endfor %}
+
+            </div>
+
+            <div class="col-md-4 mb-2">
+                <div class="position-sticky bg-light rounded" style="top: 2rem;">
+                    <div class="p-4 mb-3">
+                        <form class="d-flex border border-secondary rounded" role="search" action="{% url 'blog:search' %}" method="get">
+                            <input name="search" class="form-control border-0" type="search" placeholder="Buscar"
+                                aria-label="Search" style="box-shadow: none;">
+                            <button class="btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                              </svg></button>
+                        </form>
+                    </div>
+                    <div class="p-4 mb-3">
+                        <h4 class="fst-italic">Sobre</h4>
+                        <p class="mb-0">Información adicional sobre lo que se encuentra dentro de esta página.</p>
+                    </div>
+
+                    <div class="p-4">
+                        <h4 class="fst-italic">Más Cosas?</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="blog-pagination" aria-label="Pagination">
+            {% if page_obj.has_previous %}
+            <a class="btn btn-outline-primary rounded-pill"
+                href="?page={{ page_obj.previous_page_number }}{% if query %}&search={{ query }}{% endif %}">Antes</a>
+            {% else %}
+            <a class="btn btn-outline-secondary rounded-pill disabled">Antes</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <a class="btn btn-outline-primary rounded-pill"
+                href="?page={{ page_obj.next_page_number }}{% if query %}&search={{ query }}{% endif %}">Siguiente</a>
+            {% else %}
+            <a class="btn btn-outline-secondary rounded-pill disabled">Siguiente</a>
+            {% endif %}
+        </nav>
+    </main>
+</div>
+{% endblock %}
