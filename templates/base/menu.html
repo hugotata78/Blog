@@ -8,43 +8,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                    <a class="nav-link" aria-current="page" href="/">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'blog:featured' %}">Destacados</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Categorías
-                    </a>
-                    <ul class="dropdown-menu">
-                        {% for category in categories %}
-                        <li><a class="dropdown-item" href="{% url 'blog:category' category.slug %}">{{ category.title}}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Ordenar por
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog:order' '-created_at' %}">Recientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog:order' 'created_at' %}">Antiguos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog:order' 'title' %}">Titulos (a-z)</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'blog:order' '-title' %}">Titulos (z-a)</a>
-                        </li>
-                    </ul>
+                    <a class="nav-link" href="{% url 'blog:featured' %}">Blog</a>
                 </li>
             </ul>
+            <form class="d-flex border border-secondary rounded" role="search" action="{% url 'blog:search' %}" method="get">
+                <input name="search" class="form-control border-0" type="search" placeholder="Buscar"
+                    aria-label="Search" style="box-shadow: none;">
+                <button class="btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                  </svg></button>
+            </form>
             {% if user.is_authenticated %}
             <a class="btn btn-outline-primary ms-2" href="{% url 'logout' %}" role="button">Cerrar Sesión</a>
             {% else %}
