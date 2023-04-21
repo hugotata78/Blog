@@ -1,0 +1,41 @@
+<div class="col-md-4 mb-2">
+    <div class="position-sticky bg-light rounded" style="top: 2rem;">
+        <div class="p-4 mb-3">
+            <h4 class="fst-italic">Sobre</h4>
+            <p class="mb-0">Información adicional sobre lo que se encuentra dentro de esta página.</p>
+        </div>
+
+        <div class="p-4 mb-3">
+            <h4 class="fst-italic">Filtros</h4>
+            <h5 class="fst-italic">Categorías y Destacados</h5>
+            <ul class="navbar-nav w-100 mb-2">
+                {% for category in categories%}
+                <li class="nav-item border-bottom">
+                    <a href="{% url 'blog:category' category.slug %}" class="nav-link">
+                        {{ category.title }}
+                    </a>
+                </li>
+                {% endfor %}
+                <li class="nav-item border-bottom">
+                    <a class="nav-link" href="{% url 'blog:featured' %}">Destacados</a>
+                </li>
+            </ul>
+            <h4 class="fst-italic">Ordenar Artículos</h4>
+            <ul class="navbar-nav w-100 mb-2">
+                <li class="nav-item border-bottom">
+                    <a class="nav-link" href="{% url 'blog:order' '-created_at' %}">Recientes</a>
+                </li>
+                <li class="nav-item border-bottom">
+                    <a class="nav-link" href="{% url 'blog:order' 'created_at' %}">Antiguos</a>
+                </li>
+                <li class="nav-item border-bottom">
+                    <a class="nav-link" href="{% url 'blog:order' 'title' %}">Titulos (a-z)</a>
+                </li>
+                <li class="nav-item border-bottom">
+                    <a class="nav-link" href="{% url 'blog:order' '-title' %}">Titulos (z-a)</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
