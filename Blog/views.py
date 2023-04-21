@@ -12,15 +12,36 @@ from . forms import PostCommentForm
 
 # Create your views here.
 
-class PostListView(ListView):
+def order_post(query):
+    if query == '-created_at':
+        return 'Recientes'
+    if query == 'created_at':
+        return 'Antiguos'
+    if query == 'title':
+        return 'Títulos (A-Z)'
+    if query == '-title':
+        return 'Títulos (Z-A)'
+
+class HomePageView(ListView):
     model = Post
     template_name = 'blog/home_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        context['featured'] = Post.objects.filter(featured=True)[:3]
+        context['recent'] = Post.objects.all()[:3]
+        context['categories'] = Category.objects.all()
+        return context
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/results.html'
     paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
-        context['featured'] = Post.objects.filter(featured=True)[:3]
         context['categories'] = Category.objects.all()
+        context['info_title'] = 'Blog > Todos los Artículos'
         return context
 
 class PostDetailView(DetailView):
@@ -74,7 +95,7 @@ class FeaturedPostListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(FeaturedPostListView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
-        context['info_title'] = 'Post > Destacados'
+        context['info_title'] = 'Blog > Destacados'
         return context
 
 class CategoryListView(ListView):
@@ -91,7 +112,7 @@ class CategoryListView(ListView):
         context = super().get_context_data(**kwargs)
         category = Category.objects.filter(slug=self.kwargs['slug'])
         context['categories'] = Category.objects.all()
-        context['info_title'] = f'Post > Categoría > {category[0].title}'
+        context['info_title'] = f'Blog > Categoría > {category[0].title}'
         return context
 
 
@@ -112,7 +133,7 @@ class SearchResultsView(ListView):
         query = self.request.GET.get('search')
         context['query'] = self.request.GET.get('search')
         context['categories'] = Category.objects.all()
-        context['info_title'] = f'Post > busqueda > {query} '
+        context['info_title'] = f'Blog > busqueda > {query} '
         return context
 
 class SortListView(ListView):
@@ -126,6 +147,9 @@ class SortListView(ListView):
         return post_list
     def get_context_data(self, **kwargs):
         context = super(SortListView,self).get_context_data(**kwargs)
+        query = self.request.path.replace('/order/','')
+        order = order_post(query)
         context['categoties'] = Category.objects.all()
+        context['info_title'] = f'Post > Ordenar por > {order} '
         return context
 

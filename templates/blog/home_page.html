@@ -16,43 +16,47 @@
         <div class="row g-5">
             <div class="col-md-8">
                 <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                    Más Artículos
+                    Destacados
                 </h3>
-                {% for post in post_list %}
-                <article class="blog-post">
-                    <h2 class="blog-post-title mb-1">
-                        {% comment %} <a href="{% url 'blog:post' post.slug %}" style="text-decoration: none"
-                            class="text-black">
-                            {{ post.title }}
-                        </a> {% endcomment %}
+                {% for post in featured %}
+                <div class="card mb-3">
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="thumbnail">
+                    {% endif %}
+                    <div class="card-body">
                         <a href="{{ post.get_absolute_url }}" style="text-decoration: none" class="text-black">
-                            {{ post.title }}
+                            <h5 class="card-title">{{ post.title }}</h5>
                         </a>
-                    </h2>
-                    <p class="blog-post-meta">{{ post.date_created.date }}. {{post.author}}</p>
-
-                    <hr>
-                    <p>{{ post.overview }}</p>
-                </article>
+                        <p class="card-text">{{ post.overview }}</p>
+                        <p class="card-text"><small class="text-muted"> {{ post.created_at }}</small></p>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="divider"></div>
+                <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                    Recientes
+                </h3>
+                {% for post in recent %}
+                <div class="card mb-3">
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="thumbnail">
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{{ post.get_absolute_url }}" style="text-decoration: none" class="text-black">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                        </a>
+                        <p class="card-text">{{ post.overview }}</p>
+                        <p class="card-text"><small class="text-muted"> {{ post.created_at }}</small></p>
+                    </div>
+                </div>
                 {% endfor %}
 
             </div>
 
             {% include 'blog/aside.html '%}
-        <nav class="blog-pagination" aria-label="Pagination">
-            {% if page_obj.has_previous %}
-            <a class="btn btn-outline-primary rounded-pill"
-                href="?page={{ page_obj.previous_page_number }}{% if query %}&search={{ query }}{% endif %}">Antes</a>
-            {% else %}
-            <a class="btn btn-outline-secondary rounded-pill disabled">Antes</a>
-            {% endif %}
-            {% if page_obj.has_next %}
-            <a class="btn btn-outline-primary rounded-pill"
-                href="?page={{ page_obj.next_page_number }}{% if query %}&search={{ query }}{% endif %}">Siguiente</a>
-            {% else %}
-            <a class="btn btn-outline-secondary rounded-pill disabled">Siguiente</a>
-            {% endif %}
-        </nav>
+
+        </div>
+
     </main>
 </div>
 {% endblock %}
