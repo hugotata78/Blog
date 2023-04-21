@@ -38,28 +38,7 @@
 
             </div>
 
-            <div class="col-md-4 mb-2">
-                <div class="position-sticky bg-light rounded" style="top: 2rem;">
-                    <div class="p-4 mb-3">
-                        <form class="d-flex border border-secondary rounded" role="search" action="{% url 'blog:search' %}" method="get">
-                            <input name="search" class="form-control border-0" type="search" placeholder="Buscar"
-                                aria-label="Search" style="box-shadow: none;">
-                            <button class="btn" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                              </svg></button>
-                        </form>
-                    </div>
-                    <div class="p-4 mb-3">
-                        <h4 class="fst-italic">Sobre</h4>
-                        <p class="mb-0">Información adicional sobre lo que se encuentra dentro de esta página.</p>
-                    </div>
-
-                    <div class="p-4">
-                        <h4 class="fst-italic">Más Cosas?</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% include 'blog/aside.html '%}
         <nav class="blog-pagination" aria-label="Pagination">
             {% if page_obj.has_previous %}
             <a class="btn btn-outline-primary rounded-pill"
