@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% load markdown_extras %}
+
+
+{% block 'title'%} {{ user }} {% endblock %}
+
+{%block 'content' %}
+
+<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+
+    <main class="container">
+
+        <div class="row g-5">
+            <div class="col-md-8">
+
+                <div class="row">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show w-100" role="alert">
+                            <strong>{{message | safe }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    <div class="d-flex justify-content-between">
+                        
+                        <div>
+                            <h1>{{ user }}</h1>
+                        </div>
+                        <div class="align-self-end">
+                            <p> {{user.username}}</p>
+                            <p> {{ user.email }} </p>
+                            <a href="{% url 'users:update' pk=user.id%}" class="btn btn-info">Editar Perfil</a>
+                        </div>
+                    </div>
+                </div>
+                <hr class="d-none d-md-block my-2 mb-3 mt-2">
+            </div>
+
+    </main>
+</div>
+{% endblock %}
