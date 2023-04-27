@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block 'title' %} Editar Perfil de Usuario {% endblock %}
 {% block 'content' %}
-<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+<div class="container-xxl bd-gutter pt-5 my-md-4 bd-layout">
 
     <main class="container">
 
@@ -11,12 +11,15 @@
 
             <div class="col-md-6">
 
-                <div class="w-100 m-auto text-center">
+                <div class="w-100 m-auto text-center p-3">
                     <form method="POST" class="form-group">
+                        <h2 class="p-3">Actualizar Usuario</h2>
                         {% csrf_token %}
                         {{ form|crispy }}
-                        <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                        <a href="{% url 'users:user' pk=user.id %}" class="btn btn-danger">Cancelar</a>
+                        <div>
+                            <button type="submit" class="btn btn-lg btn-success w-100 mt-4">Guardar Cambios</button>
+                            <a href="{% url 'users:user' pk=user.id %}" class="btn btn-lg btn-danger w-100 mt-4">Cancelar</a>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -6,15 +6,18 @@
 
 {%block 'content' %}
 
-<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+<div class="container-xxl bd-gutter pt-5 my-md-4 bd-layout">
 
     <main class="container">
 
         <div class="row g-5">
-            <div class="col-md-8">
+            <div class="col-md-12 d-flex justify-content-center">
 
                 <div class="row">
-                    {% if messages %}
+
+
+                    <div class="card mb-3 p-2 w-100">
+                        {% if messages %}
                         {% for message in messages %}
                         <div class="alert alert-success alert-dismissible fade show w-100" role="alert">
                             <strong>{{message | safe }}</strong>
@@ -22,19 +25,23 @@
                         </div>
                         {% endfor %}
                         {% endif %}
-                    <div class="d-flex justify-content-between">
-                        
-                        <div>
-                            <h1>{{ user }}</h1>
-                        </div>
-                        <div class="align-self-end">
-                            <p> {{user.username}}</p>
-                            <p> {{ user.email }} </p>
-                            <a href="{% url 'users:update' pk=user.id%}" class="btn btn-info">Editar Perfil</a>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ0ZVi3CUb8rmyWiVc3zNTRnClsgd03IM38xgpUYVy5ZXiSYX0FGpO749fLptsJrNGIW8&usqp=CAU"
+                            class="card-img-top" alt="thumbnail">
+                        <div class="card-body">
+                            <a href="{{ post.get_absolute_url }}" style="text-decoration: none" class="text-black">
+                                <h5 class="card-title">{{ user }}</h5>
+                            </a>
+                            <p class="card-text">{{user.username}}</p>
+                            <p class="card-text"><small class="text-muted"> {{ user.email }}</small></p>
+                            <div>
+                                <a href="{% url 'users:update' pk=user.id%}" class="btn btn-lg btn-info mt-4 w-100">Actualizar
+                                    Perfil</a>
+                                <a href="#" class="btn btn-lg btn-danger mt-4 w-100">Eliminar Perfil</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <hr class="d-none d-md-block my-2 mb-3 mt-2">
+
             </div>
 
     </main>
