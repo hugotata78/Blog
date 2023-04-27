@@ -36,7 +36,7 @@
                             <div>
                                 <a href="{% url 'users:update' pk=user.id%}" class="btn btn-lg btn-info mt-4 w-100">Actualizar
                                     Perfil</a>
-                                <a href="#" class="btn btn-lg btn-danger mt-4 w-100">Eliminar Perfil</a>
+                                <a href="{% url 'users:delete' pk=user.id%}" class="btn btn-lg btn-danger mt-4 w-100">Eliminar Usuario</a>
                             </div>
                         </div>
                     </div>
