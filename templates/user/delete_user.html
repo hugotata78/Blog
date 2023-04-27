@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% block 'title' %} Eliminar cuenta!!!{% endblock %}
+{% block 'content' %}
+<div class="container-xxl bd-gutter p-5 my-md-4 bd-layout">
+
+    <main class="container">
+
+        <div class="row g-5">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-6">
+
+                <div class="w-100 m-auto text-center">
+                    <form action="" method="post" class="d-flex flex-column align-items-center border m-4 p-4">
+                        {% csrf_token %}
+                        <h1 class="m-2 p-2">Eliminar cuenta</h1>
+                        <div class="alert alert-warning" role="alert">
+                            ¿Desea Eliminar su perfil de usuario?
+                          </div>
+                        <div class="m-2 p-2">
+                            <input type="submit" value="Confirmar" class="btn btn-lg btn-danger w-100 mt-4">
+                            <a href="{% url 'users:user' pk=user.id%}" class="btn btn-lg btn-primary w-100 mt-4">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+
+    </main>
+</div>
+{% endblock %}
