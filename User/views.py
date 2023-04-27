@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import get_user_model
@@ -31,5 +31,10 @@ class UpdateUserView(SuccessMessageMixin,UpdateView):
     
     def get_success_url(self):
         return reverse_lazy('users:user', args=[self.object.id])
+
+class DeleteUserView(DeleteView):
+    model = User
+    template_name = 'user/delete_user.html'
+    success_url = reverse_lazy('blog:home_page')
 
     
