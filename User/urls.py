@@ -10,4 +10,5 @@ urlpatterns = [
     path('success/', TemplateView.as_view(template_name='user/success_registration.html'), name='success'),
     path('user/<int:pk>', views.UserDetailView.as_view(), name='user'),
     path('user/update/<int:pk>', views.UpdateUserView.as_view(), name='update'),
+    path('user/delete/<int:pk>', views.DeleteUserView.as_view(),name='delete')
 ]
